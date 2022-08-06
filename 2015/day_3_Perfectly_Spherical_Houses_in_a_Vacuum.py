@@ -45,6 +45,7 @@ with open('test_case_day_3.txt', 'r') as file:
     for x in file:
         h1 = {(0,0)}
         h2 = {(0,0)}
+        h = set()
         c1 = 0 ; c2= 0; c3 = 0;c4=0
         for i in range(0,len(x),2):
             if x[i] == '>':
@@ -69,4 +70,5 @@ with open('test_case_day_3.txt', 'r') as file:
                 c4 -= 1
 
             h2.add((c3,c4))
-    print(len(h1)+len(h2)-1)
+    h =  h1.union(h2)
+    print(len(h))
