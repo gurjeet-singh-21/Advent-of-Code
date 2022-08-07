@@ -14,9 +14,15 @@
 import hashlib
 key = 'ckczppom'
 for num in range(100000000):
+    # add key with numbers ex - abcdrf609043 and convert them into binary using
+    # encode and put in result]
     result = hashlib.md5((key + str(num)).encode())
+
+    # now convert the result from md5 to hex digits
     result = result.hexdigest()
 
+    # checking if first 5 digits are zero or not
+    # if yes print the number
 #    if result[:5] == '00000':
 #        print(result)
 #        print(num)
@@ -27,6 +33,8 @@ for num in range(100000000):
 #Now find one that starts with six zeroes.
 #Your puzzle input is still ckczppom.
 
+    # checking if first 6 digits are zero or not
+    # if yes print the number
     if result[:6] == '000000':
         print(result)
         print(num)
