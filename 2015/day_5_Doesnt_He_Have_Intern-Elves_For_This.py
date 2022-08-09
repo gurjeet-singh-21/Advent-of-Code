@@ -12,17 +12,19 @@
 #
 #How many strings are nice?
 ##################################
-cond_1 = cond_2 = cond_3 = True
-count_1 = count_2 = 0
-list_ = ['ab','cd','pq','xy']
-total = 0
 with open('test_case_day_5.txt', 'r') as file:
-    for data in file:
+    items = [i[:-1] for i in file]
+
+    list_ = ['ab','cd','pq','xy']
+    total = 0
+
+    for data in items:
+        cond_1 = cond_2 = cond_3 = True
+        count_1 = count_2 = 0
         #condition 1
         for i in data:
             if i in 'aeiou':
                 count_1 += 1
-
         if count_1 < 3:
             cond_1 = False
 
@@ -38,8 +40,7 @@ with open('test_case_day_5.txt', 'r') as file:
             if i in data:
                 cond_3 = False
 
-    if cond_1 and cond_2 and cond_3:
-        total += 1
-
+        if cond_1 and cond_2 and cond_3:
+            total += 1
     print(total)
 
