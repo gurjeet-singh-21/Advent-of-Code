@@ -34,7 +34,12 @@
 #
 #In little Bobby's kit's instructions booklet (provided as your puzzle input), what signal is ultimately provided to wire a?
 #############################################
+
 data = dict()
+d1 = dict()
+d2 = dict()
+
+#with open('test_case_day_7.txt', 'r') as file:
 with open('test_case_day_7.txt', 'r') as file:
     for rows in file:
         value, key = rows.split("-> ")
@@ -42,24 +47,46 @@ with open('test_case_day_7.txt', 'r') as file:
 
 for _ in data:
     if data[_].isdigit():
-        data[_] = int(data[_])
+        d1[_] = int(data[_])
     else:
-        data[_] = data[_].split()
+        d2[_] = data[_].split()
 
-for i in data:
-    if 'NOT' in data[i]:
-        data[i] = ~data[i][-1] & 0xffff
-print(data)
-#    else:
-#    if data[1] == 'AND':
-#        final[data[-1]] = final[data[0]] & final[data[2]]
-#
-#    elif data[1] == 'OR':
-#        final[data[-1]] = final[data[0]] | final[data[2]]
-#
-#    elif data[1] == 'LSHIFT':
-#        final[data[-1]] = final[data[0]] << int(data[2])
-#
-#    elif data[1] == 'RSHIFT':
-#        final[data[-1]] = final[data[0]] >> int(data[2])
-#print(final['a'])
+while len(d1) != len(data):
+    for i in d2:
+        
+        if 'AND' in d2[i]:
+            if d2[i][0].isdigit() and d2[i][-1] in d1:
+                d1[i] = int(d2[i][0]) & d1[d2[i][-1]]
+             
+            elif d2[i][-1].isdigit() and d2[i][0] in d1:
+                d1[i] = d1[d2[i][0]] & int(d2[i][-1])
+
+            elif d2[i][0] in d1 and d2[i][-1] in d1:
+                d1[i] = d1[d2[i][0]] & d1[d2[i][-1]]
+
+
+        elif 'OR' in d2[i]:
+            if d2[i][0].isdigit() and d2[i][-1] in d1:
+                d1[i] = int(d2[i][0]) | d1[d2[i][-1]]
+             
+            elif d2[i][-1].isdigit() and d2[i][0] in d1:
+                d1[i] = d1[d2[i][0]] | int(d2[i][-1])
+
+            elif d2[i][0] in d1 and d2[i][-1] in d1:
+                d1[i] = d1[d2[i][0]] | d1[d2[i][-1]]
+
+
+        elif d2[i][-1] in d1 and 'NOT' in d2[i]:
+            d1[i] = ~d1[d2[i][-1]] & 0xffff
+
+        elif d2[i][0] in d1:
+            if 'LSHIFT' in d2[i]:
+                d1[i] = d1[d2[i][0]] << int(d2[i][-1])
+
+            elif 'RSHIFT' in d2[i]:
+                d1[i] = d1[d2[i][0]] >> int(d2[i][-1])
+
+            else:
+                d1[i] = d1[d2[i][0]]
+
+print(d1['a'])
