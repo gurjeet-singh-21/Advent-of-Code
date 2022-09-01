@@ -1,28 +1,30 @@
 #--- Day 9: All in a Single Night ---
 #--- part one ---
-import random
+from itertools import permutations
+
 data = {}
-
-with open('/home/gurjeet/Desktop/testCase.txt', 'r') as file:
-    for i in file:
-        key, value = i.strip().split("=")
-        data[key.strip()] = int(value)
-
 cities = set()
+with open('test_case_day_9.txt' ,'r') as file:
+    for rows in file:
+        key, value = rows.split(" = ")
+        key = key.split(' to ')
+        key = tuple(key)
+        data[key] = int(value.strip())
+    
+
 for i in data:
-    i = i.split()
-    cities.add(i[0])
-    cities.add(i[-1])
+    for j in i:
+        cities.add(j)
 
-# example - 
-# London = 0
-# London to Dublin = 464
-# Dublin to Belfast = 141
+final = []
+per = permutations(cities)
 
-# take 1 city at random, start with 0 and then search for next city from there
-
-#city = random.choice(list(cities))
-for city in cities:
-    d = 0
-    next_city = random.choice(list(cities))
-    if 
+for i in per:
+    distance = 0
+    for k,v in data.items():
+        for j in range(len(i)-1):
+            if i[j] in k and i[j+1] in k:
+                distance += v
+    final.append(distance)
+#print(min(final))
+print(max(final))
