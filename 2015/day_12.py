@@ -31,18 +31,18 @@ sum = 0
 
 def rec_json(d):
 
-    if isinstance(d, dict):
-        for v1 in d.values():
-            if type(v1) not in [int, str, list] and('red' in v1.keys() or 'red' in
-                    v1.values()):
-                yield 0
-            else:
-                yield from rec_json(v1)
+    if isinstance(d, int):
+        yield d
     elif isinstance(d, list):
         for k2 in d:
             yield from rec_json(k2)
-    elif isinstance(d, int):
-        yield d
+    elif isinstance(d, dict):
+        if 'red' in d.values():
+            yield 0
+        else:
+            for value in d.values():
+                yield from rec_json(value)
+    yield 0
 d1 = list(rec_json(data))
 for i in d1:
     sum += i
