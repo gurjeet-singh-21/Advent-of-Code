@@ -1,12 +1,5 @@
 #--- Day 13: Knights of the Dinner Table ---
 #from itertools import permutations, combinations
-#
-#        +41 +46
-#   +55   David    -2
-#   Carol       Alice
-#   +60    Bob    +54
-#        -7  +83
-
 data = {}
 names = set()
 with open('/home/gurjeet/Desktop/in13.txt', 'r') as file:
@@ -25,32 +18,8 @@ for m in data:
 
 
 n1 = list(names.copy())
+print(n1)
 
-collect = []
-while len(n1):
-    n = n1.pop()
-    print(n, n1, len(n1))
-    if len(n1) >= 1:
-        temp = []
-        for k, v in data.items():
-            if (n == k[0]) and (k[1] in n1) and ('gain' in k):
-                temp.append(v)
-                print(temp)
-            elif (n == k[0]) and (k[1] in n1) and ('lose' in k):
-                temp.append(-v)
-                print(temp)
-        print('temp ', temp)
-        collect.append(max(temp))
-        print('collect ', collect)
-    elif len(n1) == 0:
-        for k, v in data.items():
-            temp = []
-            if (n == k[0]) and ('gain' in k):
-                temp.append(v)
-            elif (n == k[0]) and ('lose' in k):
-                temp.append(-v)
-        collect.append(max(temp))
-print(collect)
 
 
 
