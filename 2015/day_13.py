@@ -15,6 +15,8 @@ for m in data:
         if n not in ['lose','gain']:
             names.add(n)
 per = permutations(names)
+for i in per:
+    print(i)
 final = []
 collect = []
 #while True:
@@ -26,4 +28,4 @@ for i in per:
         else:
             if i[0] in j and i[1] in j and 'lose' in j:
                 collect.append(-data[j])
-print(collect)
+#print(len(collect))
